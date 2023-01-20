@@ -1,0 +1,33 @@
+.card{
+
+    border:none;
+    width:500px;
+    padding:40px;
+    position:fixed;
+    top:10%;
+    left:30%;
+    transform:translate(-50%,-50%);
+    background:hsla(205,46%,30%,1);
+    background: linear-gradient(90deg, hsla(205,46%,30%,1) 0%,hsla(260,29%,36%,1)100%);
+    margin-top: 300px;
+    margin-left: 300px;
+    
+}
+.card h1,h6{
+    color:#fff;
+    text-align: center;
+
+}
+
+.card label{
+    color:#fff;
+}
+.loginImg{
+    margin-left:150px;
+    width:100px;
+    height:100px;
+}
+.form-group.required .form-label:after {
+    content: "*";
+    color: red;
+  }

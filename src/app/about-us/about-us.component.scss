@@ -1,0 +1,38 @@
+.row{
+    height:30px;
+    margin-left:250px;
+    margin-top: 10px;
+}
+h1{
+    text-align: center;
+}
+.column {
+    float: left;
+    width:400px;
+    padding: 20px;
+    box-shadow: 5px 5px 5px 3px lightgrey;
+  }
+  .vision{
+    margin-left:250px;
+    margin-top:250px;
+
+  }
+  .mission{
+    margin-left:250px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+  }
+  p{
+    margin-right: 40px;
+    text-align: justify;
+  }
+  footer{
+    margin-top:2px;
+    padding-top:2px;
+    width:1500px;
+    height:200px;
+
+    background-color:black;
+    position:fixed;
+    color:white;
+  }

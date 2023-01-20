@@ -1,0 +1,180 @@
+<div class="container ">
+    <div class="card">
+        <div>
+            <button class="btn" style="text-decoration: none;" (click)="toBack()"> <i
+                    class="fa fa-arrow-left  "></i>Back</button>
+
+        </div>
+        <!-- <img class="loginImg mb-2" src="../../assets/Images/log-in.png"> -->
+        <form [formGroup]="signupForm">
+            <div class="row">
+                <div class="form-group col-md-6 required mb-1">
+                    <label for="Name" class="form-label required">Name</label>
+                    <input type="text" formControlName="name" class="form-control" id="Name"
+                        [(ngModel)]="signupapi.user.name"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['name'].errors}" />
+                    <small
+                        *ngIf="(signupForm.controls['name'].dirty|| signupForm.controls['name'].touched)&& signupForm.hasError('required','name')"
+                        class=" form-text text-danger">* Name is required.
+                    </small>
+                    <small
+                        *ngIf="(signupForm.controls['name'].dirty|| signupForm.controls['name'].touched)&& signupForm.hasError('minlength','name')"
+                        class=" form-text text-danger">* Name should contain atleast 4 character.
+                    </small>
+                    <small
+                        *ngIf="(signupForm.controls['name'].dirty|| signupForm.controls['name'].touched)&& signupForm.hasError('pattern','name')"
+                        class=" form-text text-danger">*Name should contain only alphabet.
+                    </small>
+                </div>
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="LastName" class="form-label required">LastName</label>
+                    <input type="text" formControlName="lastname" class="form-control" id="lastname"
+                        [(ngModel)]="signupapi.user.lastName"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['lastname'].errors}" />
+
+                    <small
+                        *ngIf="(signupForm.controls['lastname'].dirty|| signupForm.controls['lastname'].touched)&& signupForm.hasError('required','lastname')"
+                        class=" form-text text-danger">* LastName is required.
+                    </small>
+                    <small
+                        *ngIf="(signupForm.controls['lastname'].dirty|| signupForm.controls['lastname'].touched)&& signupForm.hasError('minlength','lastname')"
+                        class=" form-text text-danger">* LastName should contain atleast 2 character.
+                    </small>
+                    <small
+                        *ngIf="(signupForm.controls['lastname'].dirty|| signupForm.controls['lastname'].touched)&& signupForm.hasError('pattern','lastname')"
+                        class=" form-text text-danger">* LastName should contain only alphabet.
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="Email" class="form-label required">Email</label>
+                    <input type="email" formControlName="userName" class="form-control" id="Email"
+                        [(ngModel)]="signupapi.user.userName"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['userName'].errors}">
+                    <small
+                        *ngIf="(signupForm.controls['userName'].dirty|| signupForm.controls['userName'].touched)&& signupForm.hasError('required','userName')"
+                        class=" form-text text-danger">* Email is required.
+                    </small>
+                    <small
+                        *ngIf="(signupForm.controls['userName'].dirty|| signupForm.controls['userName'].touched)&& signupForm.hasError('pattern','userName')"
+                        class=" form-text text-danger">* Invalid email.
+                    </small>
+                </div>
+                <div class="form-group  col-md-6 required mb-1">
+                    <div class="form-label required" style=" color:#fff;"> Gender</div>
+
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" value="male" id="male" formControlName="gender">
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" value="female" id="female" formControlName="gender">
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                    <small
+                        *ngIf="(signupForm.controls['gender'].dirty|| signupForm.controls['gender'].touched)&& signupForm.hasError('required','gender')"
+                        class=" form-text text-danger">* Gender is required.
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="Password" class="form-label required">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="Password"
+                        [(ngModel)]="signupapi.user.password"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['password'].errors}">
+
+                    <small
+                        *ngIf="(signupForm.controls['password'].dirty|| signupForm.controls['password'].touched)&& signupForm.hasError('required','password')"
+                        class=" form-text text-danger">*Password is required
+                    </small>
+                    <div class="form-text text-danger"
+                        *ngIf="(signupForm.controls['password'].dirty|| signupForm.controls['password'].touched)&& signupForm.hasError('pattern','password')">
+                        *Password does not allow white spaces
+                        *password should start with Alphabet
+                        *password contains atleast one digit and one special character
+                    </div>
+                </div>
+
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="Address" class="form-label required">Address</label>
+                    <input type="text" formControlName="address" class="form-control" id="adddress"
+                        [(ngModel)]="signupapi.user.address"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['address'].errors}">
+                    <small
+                        *ngIf="(signupForm.controls['address'].dirty|| signupForm.controls['address'].touched)&& signupForm.hasError('required','address')"
+                        class=" form-text text-danger">* Address is required
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="Mobile" class="form-label required">Mobile Number</label>
+                    <input type="text" formControlName="mobile" class="form-control" id="Mobile"
+                        [(ngModel)]="signupapi.user.mobile"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['mobile'].errors}" />
+
+                    <small
+                        *ngIf="(signupForm.controls['mobile'].dirty|| signupForm.controls['mobile'].touched)&& signupForm.hasError('required','mobile')"
+                        class=" form-text text-danger">*Mobile no is required.
+                    </small>
+                    
+                    <small
+                        *ngIf="(signupForm.controls['mobile'].dirty|| signupForm.controls['mobile'].touched)&& signupForm.hasError('maxlength','mobile')"
+                        class=" form-text text-danger">* Mobile no should contain 10 digits.
+                    </small>
+                </div>
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="UID" class="form-label required">UID</label>
+                    <input type="text" formControlName="uid" class="form-control" id="uid"
+                        [(ngModel)]="signupapi.user.uid"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['uid'].errors}" />
+                    <small
+                        *ngIf="(signupForm.controls['uid'].dirty|| signupForm.controls['uid'].touched)&& signupForm.hasError('required','uid')"
+                        class=" form-text text-danger">* UID is required
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="form-group  col-md-6 required mb-1">
+                    <label for="UID" class="form-label required">BirthDate</label>
+                    <input type="date" formControlName="age" class="form-control" id="age"
+                        [(ngModel)]="signupapi.user.age"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['age'].errors}" />
+                    <small
+                        *ngIf="(signupForm.controls['age'].dirty|| signupForm.controls['age'].touched)&& signupForm.hasError('required','age')"
+                        class=" form-text text-danger">* BirthDate is required
+                    </small>
+                </div>
+                <div class="form-group   col-md-6 required  mb-1">
+                    <label for="usertype" class="form-label required">User type</label>
+                    <select formControlName="userType" class="form-select" aria-label="Default select example"
+                        [(ngModel)]="signupapi.user.userType"
+                        [ngClass]="{'is-invalid':submitted && signupForm.controls['userType'].errors}">
+                        <option selected>Select User Type</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Student">Student</option>
+                        <option value="Hod">Hod</option>
+                    </select>
+                    <small
+                        *ngIf="(signupForm.controls['userType'].dirty|| signupForm.controls['userType'].touched)&& signupForm.hasError('required','userType')"
+                        class=" form-text text-danger">*UserType is required
+                    </small>
+                </div>
+            </div>
+
+            <button class="btn btn-secondary mt-2  btnleft mb-2" (click)="signupForm.reset()">CANCEL</button>
+            <button type="submit" (click)="signUp(signupForm)" style="margin-left:250px;"
+                class="btn btn-primary mt-2">SignUp</button>
+            <br>
+
+            <a style="color:#fff;margin-top: 10px; text-decoration:none;" routerLink="/login">Already
+                registered? click here to Login !!</a>
+        </form>
+
+
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div style="position: fixed;">
+    <app-studentdashboard></app-studentdashboard>
+</div>
+
+<div class="container" style="margin-left:300px; padding-top:100px;width:1500px;height:600px;">
+
+
+
+    <table class="vertical mt-3 " border="2">
+        <thead>
+            <tr>
+                <th scope="col">UserId </th>
+                <th   style="padding-left: 30px;"scope="col"> Question </th>
+                <th   style="padding-left: 30px;"scope="col"> Option1 </th>
+                <th   style="padding-left: 30px;"scope="col"> Option2 </th>
+                <th   style="padding-left: 30px;"scope="col"> Option3 </th>
+                <th  style="padding-left: 30px;" scope="col"> Option4 </th>
+                <th   style="padding-left: 30px;"scope="col"> Option5 </th>
+                <th   style="padding-left: 30px;"scope="col"> Image </th>
+                <th   style="padding-left: 30px;"scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor="let user of AllQuestion">
+                <td style="padding-left: 20px;">{{user.qnID}}</td>
+                <td  style="padding-left: 30px;">{{user.qns}}</td>
+                <td  style="padding-left: 30px;">{{user.option1}}</td>
+                <td  style="padding-left: 30px;">{{user.option2}}</td>
+                <td  style="padding-left: 30px;">{{user.option3}}</td>
+                <td  style="padding-left: 30px;">{{user.option4}}</td>
+                <td  style="padding-left: 30px;">{{user.option5}}</td>
+                <td  style="padding-left: 30px;">{{user.imageName}}</td>
+                <td>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

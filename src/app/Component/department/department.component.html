@@ -1,0 +1,63 @@
+
+<div style="position: fixed;">
+    <app-studentdashboard></app-studentdashboard>
+</div>
+
+<div class="container" *ngIf="displayDept" Style="height:500px;margin-left:240px; padding-top:10px;  position:fixed;">
+    <div class="card" style="margin-top: 150px; width:500px; margin-left: 300px;">
+
+        <h1>Department</h1>
+        <div>
+        <button type="button" class="btn btn-success " style="margin-left:440px;" (click)="Add_Dept()">
+            <i class="fa fa-user-plus  fa-lg"></i></button>
+        </div>
+            <table class="table mt-3 rounded" border="2">
+            <thead>
+                <tr>
+
+                    <th scope="col">Department Id</th>
+                    <th scope="col"> DeptName </th>
+                    <th scope="col">Branch</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let  deptt of DeptList">
+
+                    <td>{{deptt.departmentId}}</td>
+             <td>{{deptt.departmentName}}</td>
+                    <td>{{deptt.branch}}</td>
+
+                  <td> <button style="margin-left:3px;" (click)="updateStudentForm(deptt)" class="btn btn-secondary"><i
+                        class="fa fa-pencil"></i></button>
+                    &nbsp;
+                <button (click)="deleteDept(deptt.departmentId)" class="btn btn-danger"><i
+                        class="fa fa-trash"></i></button></td>
+                </tr> 
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container" *ngIf="addDept" Style="width:400px;height:auto;margin-left:240px; padding-top:10px;">
+    <div class="card" style="margin-top: 300px;">
+        <h1>Department Form</h1>
+        <form [formGroup]="addDeptform"></form>
+        <div class=" col-md-10 form-group ">
+            <label class="form-label">DeptName</label>
+            <input type="text" class="form-control mb-1" name="deptname" #deptname="ngModel"
+                [(ngModel)]="depttt.dept.departmentName">
+        </div>
+        <div class=" col-md-10 form-group ">
+            <label class="form-label">Branch</label>
+            <input type="text" class="form-control mb-1" name="branch" #branch="ngModel" [(ngModel)]="depttt.dept.branch">
+        </div>
+    <div class="form-group">
+        <button   type="reset" class="btn btn-secondary mt-2  mb-2 ml-2 " (click)="cancel()">CANCEL</button>
+        <button type="submit" class="btn btn-success mt-2 mb-2 " style="margin-left:190px;" (click)="onSubmit(addDeptform)">SUBMIT</button>
+</div>
+    </div>
+</div>
+<!-- <app-line-graph *ngIf="isLineGraphDisplay" [lineGraphData]="studentMark" class="linebargraph"></app-line-graph> -->
+ <!-- < [DeptNameData]=" departmentName" >  -->
+  <!-- <app-about-us [DeptNameData]="departmentName" ></app-about-us>  -->

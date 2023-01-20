@@ -1,0 +1,36 @@
+<app-studentdashboard></app-studentdashboard>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+<div class="row" *ngIf="qnss.question && this.qnss.qnProgress != 5">
+    <div class="col s8 offset-s2">
+    <div class="card" style="margin-top:100px; margin-left:300px; width:700px; height:auto;">
+        
+            <span>Time Elasped:{{qnss.displayTimeElaspsed()}}</span>
+            <div class="progress">
+                <div class="determinate" [style.width.%]="(qnss.qnProgress+1)*10"></div>
+              </div> 
+            <br/>
+          <!-- {{qnss.question|json}}  -->
+          <div class="card blue-grey bg-dark">
+            <div class="card-content text-white">
+              
+                    <span class="card-title">{{qnss.qnProgress+1}}</span>
+                    <p>{{qnss.question[qnss.qnProgress].qns}}</p>
+            </div>
+        
+            <div class="card-action">
+                <ul class="list-group">
+                    <div class="container" *ngFor="let option of qnss.question[qnss.qnProgress].options;let i=index">
+                        <li *ngIf="option !=null" class="list-group-item"
+                            (click)="Answer(qnss.question[qnss.qnProgress].qnID,i)">
+                            {{option}}
+                        </li>
+
+                    </div>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </div>

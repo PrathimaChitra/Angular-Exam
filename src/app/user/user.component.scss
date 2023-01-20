@@ -1,0 +1,72 @@
+.container {
+  padding-left: 300px;
+  width: 2500px;
+  margin-top: 100px;
+   position:fixed;
+}
+
+.cardform {
+  box-shadow: 5px 5px 5px 3px lightgrey;
+}
+
+thead tr th {
+  position: sticky;
+  top: 0;
+}
+th {
+  padding: 16px;
+  padding-left: 15px;
+  background: lightgrey;
+  text-align: left;
+  box-shadow: 0px 0px 0 2px #e8e8e8;
+}
+table {
+  width: 100%;
+  font-family: sans-serif;
+  box-shadow: 5px 5px 5px 3px lightgrey;
+  padding: 20px;
+}
+table td {
+  padding: 16px;
+}
+tbody tr {
+  border-bottom: 2px solid #e8e8e8;
+}
+thead {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+tbody tr:hover {
+  background: #e6f7ff;
+}
+
+.search {
+ 
+  margin-top: 5px;
+  margin-bottom: 5px;
+  box-shadow: 5px 5px 5px 3px lightgrey;
+}
+
+.add {
+  margin-bottom: 10px;
+  margin-left: 760px;
+
+}
+
+.btnright {
+  margin-left: 200px;
+}
+
+.btnEdit {
+  margin-left: 220px;
+}
+
+.btnleft {
+  margin-left: 8px;
+  width: fit-content;
+}
+
+h1{
+  text-align: center;
+}

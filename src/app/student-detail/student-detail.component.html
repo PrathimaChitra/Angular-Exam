@@ -1,0 +1,448 @@
+<div>
+    <app-studentdashboard></app-studentdashboard>
+</div>
+<div *ngIf="display_studentDetails" class="container"
+    Style="width:1200px;height:500px;margin-left:240px; padding-top:10px;  ">
+    <div style="margin-top: 150px;">
+        <div>
+            <input type="text" class="w-20 h-30 float-left mt-2 mb-3 mr-4 search" [(ngModel)]="searchText.firstName"
+                placeholder="Search by name..">
+        </div>
+        <div *ngIf="role1 == 'Admin'">
+            <button type="button" class="btn btn-success " style="margin-left:780px;" (click)="Add_Student()">
+                <i class="fa fa-user-plus  fa-lg"></i></button>
+
+            <button style="margin-left:3px;" (click)="updateStudentForm(studentMark)" class="btn btn-secondary"><i
+                    class="fa fa-pencil"></i></button>
+
+            <button style="margin-left:3px;" (click)="deleteStudent(studentMark.id)" class="btn btn-danger"><i
+                    class="fa fa-trash"></i></button>
+        </div>
+
+        <table class="table mt-3 rounded" border="2">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="width:20px;"></th>
+                    <th [appSorting]="studentList" data-order="desc" data-name="id" scope="col">Student Id <i
+                            class="fa fa-sort"></i></th>
+                    <th [appSorting]="studentList" data-order="desc" data-name="firstName" scope="col"> Name <i
+                            class="fa fa-sort"></i></th>
+                    <th scope="col">LastName</th>
+                    <th style="padding-left: 20px;" scope="col">Email</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Mark1</th>
+                    <th scope="col">Mark2 </th>
+                    <th scope="col">Mark3</th>
+                    <th scope="col">Mark4</th>
+                    <th style="padding-left: 20px;" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let stu of products|filterBy:searchText">
+                    <td></td>
+                    <td>
+                        <input type="radio" class="form-check-input" value="{{stu}}" name="student"
+                            (click)="selectStudent(stu)">
+                    </td>
+                    <td style="padding-left: 30px;">{{stu.id}}</td>
+                    <td style="padding-left: 5px;">{{stu.firstName}}</td>
+                    <td style="padding-left: 5px;">{{stu.lastName}}</td>
+                    <td>{{stu.email}}</td>
+                    <td style="padding-left: 5px;">{{stu.age}}</td>
+                    <td>{{stu.mark1}}</td>
+                    <td>{{stu.mark2}}</td>
+                    <td>{{stu.mark3}}</td>
+                    <td>{{stu.mark4}}</td>
+                    <td>
+                        <button type="submit" (click)="detailsById(stu.id)" class="btn btn-primary" value="submit"><i
+                                class="fa fa-eye"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div class="row mt-3">
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="btn-group float-right ">
+                    <button class="btn btn-sm btn-outline-primary" (click)="firstPage()"
+                        [disabled]="(selectedPage == 1)">
+                        << </button>
+                            <button class="btn btn-sm btn-outline-primary" (click)="previousPage(selectedPage)"
+                                [disabled]="(selectedPage == 1)"><i>
+                                    < </i>Prev </button>
+                            <button class="btn btn-sm btn-outline-primary active" *ngFor="let page of pageNumber"
+                                (click)="changePage(page)" [class.active]="page == selectedPage">{{page}}</button>
+                            <button class="btn btn-sm btn-outline-primary" (click)="nextPage(selectedPage)"
+                                [disabled]="(selectedPage == pageNumber.length)">Next></button>
+                            <button class="btn btn-sm btn-outline-primary" (click)="lastPage()"
+                                [disabled]="(selectedPage == pageNumber.length)">>></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="display_addStudent" class="container "
+    Style="width:500px;height:500px;margin-left: 450px; padding-top:120px;  ">
+
+    <div class="card p-3">
+        <div>
+            <button class="btn" style="text-decoration: none;" (click)="toBack()"> <i
+                    class="fa fa-arrow-left  "></i>Back</button>
+
+        </div>
+        <form [formGroup]="addStudentform">
+            <div class="row">
+                <div class="col form-group required ">
+                    <label for="firstname" class="form-label required">FirstName:</label>
+                    <div class="input-group">
+                        <input type="text" formControlName="firstname" [(ngModel)]="studentdetails.stu.firstName"
+                            id="firstname" class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['firstname'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['firstname'].dirty|| addStudentform.controls['firstname'].touched)&& addStudentform.hasError('required','firstname')"
+                        class=" form-text text-danger">*First Name is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['firstname'].dirty&& addStudentform.hasError('minlength','firstname')"
+                        class=" form-text text-danger">*First Name with atleast 2 character is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['firstname'].dirty && addStudentform.hasError('pattern','firstname')"
+                        class=" form-text text-danger">*First Name should contain only character
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="lastname" class="form-label required">LastName:</label>
+                    <div class="input-group">
+                        <input type="text" formControlName="lastname" [(ngModel)]="studentdetails.stu.lastName"
+                            id="lastname" class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['lastname'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['lastname'].dirty|| addStudentform.controls['lastname'].touched)&& addStudentform.hasError('required','lastname')"
+                        class=" form-text text-danger">*Last Name is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['lastname'].dirty&& addStudentform.hasError('minlength','lastname')"
+                        class=" form-text text-danger">*Last Name with atleast 2 character is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['lastname'].dirty && addStudentform.hasError('pattern','lastname')"
+                        class=" form-text text-danger">*Last Name should contain only character
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group required">
+                    <label for="email" class="form-label required">Email:</label>
+                    <div class="input-group">
+                        <input type="email" formControlName="email" [(ngModel)]="studentdetails.stu.email" id="email"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['email'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['email'].dirty|| addStudentform.controls['email'].touched)&& addStudentform.hasError('required','email')"
+                        class=" form-text text-danger">*Email is required
+                    </small>
+                    <small *ngIf="addStudentform.controls['email'].dirty && addStudentform.hasError('email','email')"
+                        class=" form-text text-danger">*Email is Invalid
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="age" class="form-label required">Age:</label>
+                    <div class="input-group">
+                        <input type="date" formControlName="age" [(ngModel)]="studentdetails.stu.age" id="age"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['age'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['age'].dirty|| addStudentform.controls['age'].touched)&& addStudentform.hasError('required','age')"
+                        class=" form-text text-danger">*Age is required
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group required">
+                    <label for="mark1" class="form-label required">Mark1:</label>
+                    <div class="input-group">
+                        <input type="number" formControlName="mark1" [(ngModel)]="studentdetails.stu.mark1" id="mark1"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark1'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['mark1'].dirty|| addStudentform.controls['mark1'].touched)&& addStudentform.hasError('required','mark1')"
+                        class=" form-text text-danger">Mark1 is required
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="mark2" class="form-label required">Mark2:</label>
+                    <div class="input-group">
+                        <input type="number" formControlName="mark2" [(ngModel)]="studentdetails.stu.mark2" id="mark2"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark2'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['mark2'].dirty|| addStudentform.controls['mark2'].touched)&& addStudentform.hasError('required','mark2')"
+                        class=" form-text text-danger">*Mark is required
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group required">
+                    <label for="mark3" class="form-label required">Mark3:</label>
+                    <div class="input-group">
+                        <input typee="number" formControlName="mark3" [(ngModel)]="studentdetails.stu.mark3" id="mark3"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark3'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['age'].dirty|| addStudentform.controls['age'].touched)&& addStudentform.hasError('required','age')"
+                        class=" form-text text-danger">*Mark is required
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="mark4" class="form-label required">Mark4:</label>
+                    <div class="input-group">
+                        <input type="nummber" formControlName="mark4" [(ngModel)]="studentdetails.stu.mark4" id="mark4"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark4'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['mark4'].dirty|| addStudentform.controls['mark4'].touched)&& addStudentform.hasError('required','mark4')"
+                        class=" form-text text-danger">*Mark is required
+                    </small>
+                </div>
+            </div>
+
+            <button type="reset" class="btn btn-secondary mt-2 btnleft mb-2 ">CANCEL</button>
+            <button type="submit" class="btn btn-success mt-2 mb-2 btnright"
+                (click)="onSubmit(addStudentform)">SUBMIT</button>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="container" Style="width:500px;height:500px;margin-left: 480px; padding-top:220px; "
+    *ngIf="display_editStudent">
+    <div class="card p-2 ">
+        <div>
+            <button class="btn" style="text-decoration: none;" (click)="toBack()"> <i
+                    class="fa fa-arrow-left  "></i>Back</button>
+
+        </div>
+        <form [formGroup]="addStudentform">
+            <div class="row">
+                <div class="col form-group required ">
+                    <label for="firstname" class="form-label required">FirstName:</label>
+                    <div class="input-group">
+                        <input type="text" formControlName="firstname" [(ngModel)]="studentdetails.stu.firstName"
+                            id="firstname" class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['firstname'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['firstname'].dirty|| addStudentform.controls['firstname'].touched)&& addStudentform.hasError('required','firstname')"
+                        class=" form-text text-danger">*First Name is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['firstname'].dirty&& addStudentform.hasError('minlength','firstname')"
+                        class=" form-text text-danger">*First Name with atleast 2 character is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['firstname'].dirty && addStudentform.hasError('pattern','firstname')"
+                        class=" form-text text-danger">*First Name should contain only character
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="lastname" class="form-label required">LastName:</label>
+                    <div class="input-group">
+                        <input type="text" formControlName="lastname" [(ngModel)]="studentdetails.stu.lastName"
+                            id="lastname" class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['lastname'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['lastname'].dirty|| addStudentform.controls['lastname'].touched)&& addStudentform.hasError('required','lastname')"
+                        class=" form-text text-danger">*Last Name is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['lastname'].dirty&& addStudentform.hasError('minlength','lastname')"
+                        class=" form-text text-danger">*Last Name with atleast 2 character is required
+                    </small>
+                    <small
+                        *ngIf="addStudentform.controls['lastname'].dirty && addStudentform.hasError('pattern','lastname')"
+                        class=" form-text text-danger">*Last Name should contain only character
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group required">
+                    <label for="email" class="form-label required">Email:</label>
+                    <div class="input-group">
+                        <input type="email" formControlName="email" [(ngModel)]="studentdetails.stu.email" id="email"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['email'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['email'].dirty|| addStudentform.controls['email'].touched)&& addStudentform.hasError('required','email')"
+                        class=" form-text text-danger">*Email is required
+                    </small>
+                    <small *ngIf="addStudentform.controls['email'].dirty && addStudentform.hasError('email','email')"
+                        class=" form-text text-danger">*Email is Invalid
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="age" class="form-label required">Age:</label>
+                    <div class="input-group">
+                        <input type="date" formControlName="age" [(ngModel)]="studentdetails.stu.age" id="age"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['age'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['age'].dirty|| addStudentform.controls['age'].touched)&& addStudentform.hasError('required','age')"
+                        class=" form-text text-danger">*Age is required
+                    </small>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-group required">
+                    <label for="mark1" class="form-label required">Mark1:</label>
+                    <div class="input-group">
+                        <input type="number" formControlName="mark1" [(ngModel)]="studentdetails.stu.mark1" id="mark1"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark1'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['mark1'].dirty|| addStudentform.controls['mark1'].touched)&& addStudentform.hasError('required','mark1')"
+                        class=" form-text text-danger">Mark1 is required
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="mark2" class="form-label required">Mark2:</label>
+                    <div class="input-group">
+                        <input type="number" formControlName="mark2" [(ngModel)]="studentdetails.stu.mark2" id="mark2"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark2'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['mark2'].dirty|| addStudentform.controls['mark2'].touched)&& addStudentform.hasError('required','mark2')"
+                        class=" form-text text-danger">*Age is required
+                    </small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group required">
+                    <label for="mark3" class="form-label required">Mark3:</label>
+                    <div class="input-group">
+                        <input typee="number" formControlName="mark3" [(ngModel)]="studentdetails.stu.mark3" id="mark3"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark3'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['age'].dirty|| addStudentform.controls['age'].touched)&& addStudentform.hasError('required','age')"
+                        class=" form-text text-danger">*Age is required
+                    </small>
+                </div>
+                <div class="col form-group required">
+                    <label for="mark4" class="form-label required">Mark4:</label>
+                    <div class="input-group">
+                        <input type="nummber" formControlName="mark4" [(ngModel)]="studentdetails.stu.mark4" id="mark4"
+                            class="form-control"
+                            [ngClass]="{'is-invalid':submitted && addStudentform.controls['mark4'].errors}" />
+                    </div>
+                    <small
+                        *ngIf="(addStudentform.controls['mark4'].dirty|| addStudentform.controls['mark4'].touched)&& addStudentform.hasError('required','mark4')"
+                        class=" form-text text-danger">*Age is required
+                    </small>
+                </div>
+            </div>
+
+            <button type="reset" class="btn btn-secondary mt-2 btnleft mb-2 ">CANCEL</button>
+            <button type="submit" class="btn btn-success mt-2 mb-2 btnright"
+                (click)="onSubmit(addStudentform)">SUBMIT</button>
+
+        </form>
+    </div>
+
+</div>
+
+<div>
+    <div class="container" Style="width:500px;height:450px;margin-left: 450px; padding-top:60px;" *ngIf="display">
+        <div class="card p-2" id=htmlData>
+            <div>
+                <button class="btn" style="text-decoration: none;" (click)="toBack()"> <i
+                        class="fa fa-arrow-left  "></i>Back</button>
+            </div>
+            <h1 style="margin-left:1px;"> <img src="../../assets/Images/solugenix.jfif"
+                    style="width:50px;height:50px; margin-left:50px;">  Student Report</h1>
+            <table class="table mt-3 rounded" border="2">
+                <thead *ngFor="let stu of studentListtt">
+                    <tr>
+                        <th scope="col">Student Id:</th>
+                        <td>{{stu.id}}</td>
+
+                    </tr>
+                    <tr>
+                        <th scope="col"> Name:</th>
+                        <td>{{stu.firstName}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">LastName:</th>
+                        <td>{{stu.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Email:</th>
+                        <td>{{stu.email}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Age:</th>
+                        <td>{{stu.age}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Mark1:</th>
+                        <td>{{stu.mark1}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Mark2: </th>
+                        <td>{{stu.mark2}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Mark3:</th>
+                        <td>{{stu.mark3}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="col">Mark4:</th>
+                        <td>{{stu.mark4}}</td>
+                    </tr>
+                </thead>
+            </table>
+            <div class="text-center float-center mb-1 mt-1">
+                <button type="submit" (click)="displayGraph()" class="btn btn-secondary" value="submit">Display
+                    Chart</button>
+                <button style="width:50px; height:40px; margin-top: 5px; margin-left:250px;" type="submit"
+                    class="btn btn-secondary mb-1" (click)="makepdf()"><i class="fa fa-download"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id=htmlData class="row mt-5" style="padding-top:300px;margin-left:200px;">
+
+        <app-bar-graph *ngIf="isBarGraphDisplay" [barGraphData]="studentMark" class="bargraph"></app-bar-graph>
+
+        <app-line-graph *ngIf="isLineGraphDisplay" [lineGraphData]="studentMark" class="linebargraph"></app-line-graph>
+        <br><br>
+        &nbsp;&nbsp;
+        <app-pie-graph *ngIf="isPieChartDisplay" [pieChart]="studentMark" class="piechart"></app-pie-graph>
+        <button style="width:50px; height:40px; margin-top: 50px;" *ngIf="displayDownload" type="submit"
+            class="btn btn-secondary" (click)="makepdf()"> <i class="fa fa-download"></i></button>
+    </div>
+</div>

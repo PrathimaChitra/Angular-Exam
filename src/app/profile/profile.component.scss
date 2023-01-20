@@ -1,0 +1,27 @@
+.inf-content{
+    border:1px solid #DDDDDD;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+}
+th {
+    width: 20px;
+  }
+  td {
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  table {
+    table-layout: fixed;
+    width:200px;
+  }
+  .styling {
+    margin-left: 2px;
+    margin-right: 5px;
+    font-size: 15px;
+    text-decoration: none;
+    color: black;
+  }

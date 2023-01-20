@@ -1,0 +1,108 @@
+
+.cardform {
+  box-shadow: 5px 5px 5px 3px lightgrey;
+}
+
+
+.btnright {
+  margin-left:260px;
+
+}
+.btnleft {
+  margin-left: 5px;
+}
+
+.container-fluid {
+  height: 500px;
+  padding-left: 220px;
+
+}
+
+
+
+.linebargraph {
+  width: 50%;
+  height: 280px;
+  position: relative;
+}
+
+.bargraph {
+  width: 50%;
+  height: 280px;
+  position: relative;
+}
+
+.piechart {
+  width: 50%;
+  height: 350px;
+  position: relative;
+  margin-top: 5px;
+
+}
+
+.form-group.required .form-label:after {
+  content: "*";
+  color: red;
+}
+
+.displaystudent {
+
+  width: 500px;
+  height:300px;
+  margin-left:500px;
+margin-top: 20px;
+
+
+}
+
+thead tr th {
+  position: sticky;
+  top: 0;
+}
+
+th {
+  padding-left: 5px;
+  background: lightgrey;
+  text-align: left;
+  box-shadow: 0px 0px 0 2px #e8e8e8;
+}
+
+table {
+ 
+  font-family: sans-serif;
+  box-shadow: 5px 5px 5px 3px lightgrey;
+  padding: 20px;
+ 
+}
+
+table td {
+  padding: 16px;
+}
+
+tbody tr {
+  border-bottom: 2px solid #e8e8e8;
+}
+
+thead {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+tbody tr:hover {
+  background: #e6f7ff;
+}
+.styling {
+   
+  font-size: 15px;
+ padding-left: 2px;
+
+}
+h1{
+  margin-left: 100px;
+  margin-bottom: 2px;
+ 
+}
+.search{
+  box-shadow: 5px 5px 5px 3px lightgrey;
+
+}

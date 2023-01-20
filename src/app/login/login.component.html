@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="card">
+        <div class="text center">
+            <img class="loginImg mb-2 p-2" src="../../assets/Images/log-in.png">
+            <h6>Please enter your email and password!!</h6>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="row">
+
+                <div class="mb-3 form-group  required">
+                    <label for="Email" class="form-label  required">User Name</label>
+                    <input type="email" formControlName="email" class="form-control" id="Email"
+                        [ngClass]="{'is-invalid':submitted && loginForm.controls['email'].errors}" />
+
+                    <small
+                        *ngIf="(loginForm.controls['email'].dirty|| loginForm.controls['email'].touched)&& loginForm.hasError('required','email')"
+                        class="form-text text-danger">UserName is required
+                    </small>
+                    <small
+                    *ngIf="(loginForm.controls['email'].dirty|| loginForm.controls['email'].touched)&& loginForm.hasError('pattern','email')"
+                    class=" form-text text-danger">* Invalid username.
+                </small>
+                </div>
+                <div class="mb-3 form-group  required">
+                    <label for="Password" class="form-label required">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="Password"
+                        [ngClass]="{'is-invalid':submitted && loginForm.controls['password'].errors}" />
+                    <small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')"
+                        class=" form-text text-danger"> Password is required
+                    </small>
+                    <div class="form-text text-danger"
+                    *ngIf="(loginForm.controls['password'].dirty|| loginForm.controls['password'].touched)&& loginForm.hasError('pattern','password')">
+                    *Password does not allow white spaces
+                    *password should start with Alphabet
+                    *password contains atleast one digit and one special character
+                </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a style="color:#fff;margin-top: 10px; text-decoration:none;" routerLink="/signup"> &nbsp; New user? Please
+                Register!!</a>
+
+
+        </form>
+    </div>
+</div>
